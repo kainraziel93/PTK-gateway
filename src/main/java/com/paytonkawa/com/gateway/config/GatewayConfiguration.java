@@ -17,7 +17,9 @@ public class GatewayConfiguration {
 
     @Value("${services.product-service}")
     private String productServiceUri;
-
+    
+    @Value("${services.authentication-service}")
+    private String authenticationServiceUri;
     @Bean
     public RouteLocator customRouteLocator(RouteLocatorBuilder builder) {
         return builder.routes()
@@ -27,6 +29,8 @@ public class GatewayConfiguration {
                                               .uri(commandServiceUri))
                 .route("product-service", r -> r.path("/product/**")
                                                 .uri(productServiceUri))
+                .route("authentication-service",r->r.path("/authentication/**")
+                		.uri(authenticationServiceUri))
                 .build();
     }
 }
